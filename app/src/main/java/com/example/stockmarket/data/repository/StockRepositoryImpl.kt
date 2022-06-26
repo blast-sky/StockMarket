@@ -2,6 +2,7 @@ package com.example.stockmarket.data.repository
 
 import com.example.stockmarket.data.remote.StockMarketService
 import com.example.stockmarket.data.remote.pojo.Currency
+import com.example.stockmarket.domain.repository.StockRepository
 import com.example.stockmarket.util.Resource
 import javax.inject.Inject
 
@@ -10,10 +11,14 @@ class StockRepositoryImpl @Inject constructor(
 ) : StockRepository {
 
     override suspend fun getCurrencies(): Resource<List<Currency>> {
-        val response = service.getCurrencies()
-        return if(response.isSuccessful)
+        val response = try {
+            service.getCurrencies()
+        } catch (e: Exception) {
+            return Resource.Error(e.message ?: "Remote loading Error 1")
+        }
+        return if (response.isSuccessful)
             Resource.Success(response.body()!!.currencies)
         else
-            Resource.Error("Loading Error")
+            Resource.Error("Remote loading Error 2")
     }
 }

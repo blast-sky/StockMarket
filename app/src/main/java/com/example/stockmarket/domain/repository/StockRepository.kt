@@ -1,4 +1,4 @@
-package com.example.stockmarket.data.repository
+package com.example.stockmarket.domain.repository
 
 import com.example.stockmarket.data.remote.pojo.Currency
 import com.example.stockmarket.util.Resource
