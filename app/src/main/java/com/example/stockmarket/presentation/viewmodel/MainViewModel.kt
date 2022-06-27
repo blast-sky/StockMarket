@@ -5,8 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.stockmarket.data.mapper.toCurrency
+import com.example.stockmarket.domain.model.Currency
 import com.example.stockmarket.domain.repository.StockRepository
-import com.example.stockmarket.presentation.state.CurrencyListState
+import com.example.stockmarket.presentation.state.ListState
 import com.example.stockmarket.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,29 +21,31 @@ class MainViewModel @Inject constructor(
     private val stockRepository: StockRepository
 ) : ViewModel() {
 
-    var currenciesState by mutableStateOf(CurrencyListState())
+    var currenciesState: ListState<List<Currency>> by mutableStateOf(ListState.Empty())
 
     init {
         loadCurrencies()
     }
 
     fun loadCurrencies() = viewModelScope.launch {
-        currenciesState = currenciesState.copy(isLoading = true)
-        currenciesState = when (
-            val currencies = withContext(Dispatchers.IO) { stockRepository.getCurrencies() }
-        ) {
-            is Resource.Success -> {
-                currenciesState.copy(
-                    currencies = currencies.data,
-                    isLoading = false
-                )
-            }
-            is Resource.Error -> {
-                currenciesState.copy(
-                    error = currencies.message,
-                    isLoading = false
-                )
-            }
+        currenciesState = ListState.Loading()
+        val listState = getListState()
+        currenciesState = listState
+    }
+
+    fun refresh() = viewModelScope.launch {
+        currenciesState = ListState.Refreshing()
+        val listState = getListState()
+        currenciesState = listState
+    }
+
+    private suspend fun getListState(): ListState<List<Currency>> {
+        return when (
+            val result = withContext(Dispatchers.IO) {
+                stockRepository.getCurrencies()
+            }) {
+            is Resource.Success -> ListState.Success(result.data)
+            is Resource.Error -> ListState.Error(result.message)
         }
     }
 }

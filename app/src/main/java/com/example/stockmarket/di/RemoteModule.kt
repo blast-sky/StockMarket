@@ -3,6 +3,7 @@ package com.example.stockmarket.di
 import com.example.stockmarket.data.remote.StockMarketService
 import com.example.stockmarket.data.repository.TestStockRepository
 import com.example.stockmarket.domain.repository.StockRepository
+import com.google.gson.GsonBuilder
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -17,10 +18,14 @@ class RemoteModule {
 
     @Provides
     fun provideStockMarketService(): StockMarketService {
+        val gson = GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'00:00:00+0000")
+            .create()
+
         return Retrofit
             .Builder()
             .baseUrl(StockMarketService.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(StockMarketService::class.java)
     }
