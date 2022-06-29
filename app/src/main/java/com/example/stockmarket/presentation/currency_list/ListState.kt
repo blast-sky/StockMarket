@@ -1,4 +1,4 @@
-package com.example.stockmarket.presentation.state
+package com.example.stockmarket.presentation.currency_list
 
 sealed class ListState<T> {
 

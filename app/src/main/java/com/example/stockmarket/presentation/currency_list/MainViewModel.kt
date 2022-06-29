@@ -1,14 +1,12 @@
-package com.example.stockmarket.presentation.viewmodel
+package com.example.stockmarket.presentation.currency_list
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.stockmarket.data.mapper.toCurrency
 import com.example.stockmarket.domain.model.Currency
 import com.example.stockmarket.domain.repository.StockRepository
-import com.example.stockmarket.presentation.state.ListState
 import com.example.stockmarket.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -29,14 +27,12 @@ class MainViewModel @Inject constructor(
 
     fun loadCurrencies() = viewModelScope.launch {
         currenciesState = ListState.Loading()
-        val listState = getListState()
-        currenciesState = listState
+        currenciesState = getListState()
     }
 
     fun refresh() = viewModelScope.launch {
         currenciesState = ListState.Refreshing()
-        val listState = getListState()
-        currenciesState = listState
+        currenciesState = getListState()
     }
 
     private suspend fun getListState(): ListState<List<Currency>> {
