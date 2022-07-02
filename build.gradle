@@ -4,6 +4,7 @@ buildscript {
         retrofit_version = '2.9.0'
         hilt_verison = '2.38.1'
         nav_version = '2.4.2'
+        room_version = '2.4.2'
     }
     repositories {
         mavenCentral()

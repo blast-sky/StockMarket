@@ -1,8 +1,8 @@
-package com.example.stockmarket.data.remote.pojo
+package com.example.stockmarket.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
 data class PaginationAndHistoricalDataDto(
     @SerializedName("pagination") val paginationDto: PaginationDto,
-    @SerializedName("data") val historicalDates: List<HistoricalDataDto>
+    @SerializedName("data") val historicalData: List<HistoricalDataDto>
 )

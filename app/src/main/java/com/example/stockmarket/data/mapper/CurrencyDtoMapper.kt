@@ -1,6 +1,6 @@
 package com.example.stockmarket.data.mapper
 
-import com.example.stockmarket.data.remote.pojo.CurrencyDto
+import com.example.stockmarket.data.remote.dto.CurrencyDto
 import com.example.stockmarket.domain.model.Currency
 
 fun CurrencyDto.toCurrency() : Currency {

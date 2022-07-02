@@ -1,10 +1,13 @@
 package com.example.stockmarket.presentation.routing
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.navigation.navArgument
 import com.example.stockmarket.domain.model.Currency
 import com.example.stockmarket.presentation.historical_info.HistoricalInfoScreen
 
-object HistoricalInfoRoute : Route.Base(
+
+object HistoricalInfoRoute : Route(
     baseRoute = "info",
     route = "info/{currency}",
     arguments = listOf(navArgument("currency") { type = CurrencyNavType }),

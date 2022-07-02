@@ -17,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.stockmarket.domain.model.Currency
 import com.example.stockmarket.presentation.routing.HistoricalInfoRoute
+import com.example.stockmarket.presentation.LoadState
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.gson.Gson
@@ -26,10 +27,10 @@ fun MainScreen(
     navController: NavController,
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
-    val currenciesState = mainViewModel.currenciesState
+    val currenciesState = mainViewModel.state
 
     SwipeRefresh(
-        state = rememberSwipeRefreshState(currenciesState is ListState.Refreshing),
+        state = rememberSwipeRefreshState(currenciesState is LoadState.Refreshing),
         onRefresh = { mainViewModel.refresh() }
     ) {
         Column(
@@ -38,18 +39,18 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when (currenciesState) {
-                is ListState.Loading -> {
-                    CircularProgressIndicator(color = colors.onBackground)
+                is LoadState.Loading -> {
+                    OnLoading()
                 }
-                is ListState.Success -> {
+                is LoadState.Success -> {
                     val data = currenciesState.data
                     OnSuccess(navController, data)
                 }
-                is ListState.Error -> {
+                is LoadState.Error -> {
                     val message = currenciesState.message
                     OnError(message) { mainViewModel.loadCurrencies() }
                 }
-                is ListState.Empty -> {
+                is LoadState.Empty -> {
                     Text(
                         text = "Nothing happened.",
                         modifier = Modifier
@@ -59,14 +60,25 @@ fun MainScreen(
                         textAlign = TextAlign.Center
                     )
                 }
-                is ListState.Refreshing -> Unit
+                is LoadState.Refreshing -> Unit
             }
         }
     }
 }
 
 @Composable
-private fun OnError(message: String, onClick: () -> Unit) {
+fun OnLoading() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator(color = colors.onBackground)
+    }
+}
+
+@Composable
+fun OnError(message: String, onClick: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

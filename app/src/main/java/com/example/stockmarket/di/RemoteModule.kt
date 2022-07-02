@@ -1,8 +1,8 @@
 package com.example.stockmarket.di
 
 import com.example.stockmarket.data.remote.StockMarketService
-import com.example.stockmarket.data.repository.TestStockRepository
-import com.example.stockmarket.domain.repository.StockRepository
+import com.example.stockmarket.data.repository.RemoteStockRepositoryImpl
+import com.example.stockmarket.domain.repository.RemoteStockRepository
 import com.google.gson.GsonBuilder
 import dagger.Binds
 import dagger.Module
@@ -35,9 +35,9 @@ class RemoteModule {
 @InstallIn(ViewModelComponent::class)
 abstract class BindRemoteModule {
 
-//    @Binds
-//    abstract fun bindStockRepository(repositoryImpl: StockRepositoryImpl): StockRepository
-
     @Binds
-    abstract fun bindStockRepository(repository: TestStockRepository): StockRepository
+    abstract fun bindStockRepository(repositoryImpl: RemoteStockRepositoryImpl): RemoteStockRepository
+
+//    @Binds
+//    abstract fun bindStockRepository(repository: TestRemoteStockRepository): RemoteStockRepository
 }

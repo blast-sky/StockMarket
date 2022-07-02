@@ -1,4 +1,4 @@
-package com.example.stockmarket.data.remote.pojo
+package com.example.stockmarket.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
