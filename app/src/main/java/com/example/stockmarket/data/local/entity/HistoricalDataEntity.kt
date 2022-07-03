@@ -10,8 +10,8 @@ import java.time.LocalDateTime
     tableName = "historical_data",
     primaryKeys = ["symbol", "date"],
     foreignKeys = [ForeignKey(
-        entity = CurrencyEntity::class,
-        parentColumns = ["code"],
+        entity = TickerEntity::class,
+        parentColumns = ["symbol"],
         childColumns = ["symbol"],
         onDelete = CASCADE,
         onUpdate = CASCADE

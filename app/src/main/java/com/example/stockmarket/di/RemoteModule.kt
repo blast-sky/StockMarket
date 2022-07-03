@@ -1,7 +1,9 @@
 package com.example.stockmarket.di
 
+import com.example.stockmarket.Config
 import com.example.stockmarket.data.remote.StockMarketService
 import com.example.stockmarket.data.repository.RemoteStockRepositoryImpl
+import com.example.stockmarket.data.repository.TestRemoteStockRepository
 import com.example.stockmarket.domain.repository.RemoteStockRepository
 import com.google.gson.GsonBuilder
 import dagger.Binds
@@ -29,15 +31,15 @@ class RemoteModule {
             .build()
             .create(StockMarketService::class.java)
     }
-}
 
-@Module
-@InstallIn(ViewModelComponent::class)
-abstract class BindRemoteModule {
-
-    @Binds
-    abstract fun bindStockRepository(repositoryImpl: RemoteStockRepositoryImpl): RemoteStockRepository
-
-//    @Binds
-//    abstract fun bindStockRepository(repository: TestRemoteStockRepository): RemoteStockRepository
+    @Provides
+    fun provideRemoteStockRepository(
+        repository: RemoteStockRepositoryImpl,
+        test: TestRemoteStockRepository
+    ): RemoteStockRepository {
+        return if (Config.USE_TEST_REMOTE_REPOSITORY)
+            test
+        else
+            repository
+    }
 }

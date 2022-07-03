@@ -7,7 +7,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.stockmarket.presentation.routing.HistoricalInfoRoute
-import com.example.stockmarket.presentation.routing.MainRoute
+import com.example.stockmarket.presentation.routing.CurrencyListRoute
+import com.example.stockmarket.presentation.routing.TickerListRoute
 import com.example.stockmarket.ui.theme.StockMarketTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,9 +26,10 @@ class MainActivity : ComponentActivity() {
                 )
 
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = MainRoute.route) {
-                    MainRoute.makeComposable(this, navController)
+                NavHost(navController = navController, startDestination = TickerListRoute.route) {
+                    CurrencyListRoute.makeComposable(this, navController)
                     HistoricalInfoRoute.makeComposable(this, navController)
+                    TickerListRoute.makeComposable(this, navController)
                 }
             }
         }

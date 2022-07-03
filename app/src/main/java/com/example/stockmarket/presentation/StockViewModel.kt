@@ -12,22 +12,17 @@ import kotlinx.coroutines.withContext
 
 abstract class StockViewModel<T> : ViewModel() {
 
-    var state: LoadState<T> by mutableStateOf(LoadState.Empty())
+    private val provider = LoadStateProvider<T>()
+    var state = provider.state
 
-    protected fun loadData(
+    fun loadData(
         baseState: LoadState<T> = LoadState.Loading(),
         dataLoader: suspend () -> Resource<T>
     ) = viewModelScope.launch {
-        state = baseState
-        state = getListState(dataLoader)
+        provider.loadData(
+            baseState = baseState,
+            dataLoader = dataLoader
+        )
     }
 
-    private suspend fun getListState(dataLoader: suspend () -> Resource<T>): LoadState<T> {
-        return when (
-            val result = withContext(Dispatchers.IO) { dataLoader.invoke() }
-        ) {
-            is Resource.Success -> LoadState.Success(result.data)
-            is Resource.Error -> LoadState.Error(result.message)
-        }
-    }
 }

@@ -18,20 +18,22 @@ import androidx.navigation.NavController
 import com.example.stockmarket.domain.model.Currency
 import com.example.stockmarket.presentation.routing.HistoricalInfoRoute
 import com.example.stockmarket.presentation.LoadState
+import com.example.stockmarket.presentation.common.OnError
+import com.example.stockmarket.presentation.common.OnLoading
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.gson.Gson
 
 @Composable
-fun MainScreen(
+fun CurrencyListScreen(
     navController: NavController,
-    mainViewModel: MainViewModel = hiltViewModel()
+    currencyListViewModel: CurrencyListViewModel = hiltViewModel()
 ) {
-    val currenciesState = mainViewModel.state
+    val currenciesState = currencyListViewModel.state
 
     SwipeRefresh(
         state = rememberSwipeRefreshState(currenciesState is LoadState.Refreshing),
-        onRefresh = { mainViewModel.refresh() }
+        onRefresh = { currencyListViewModel.refresh() }
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -48,7 +50,7 @@ fun MainScreen(
                 }
                 is LoadState.Error -> {
                     val message = currenciesState.message
-                    OnError(message) { mainViewModel.loadCurrencies() }
+                    OnError(message) { currencyListViewModel.loadCurrencies() }
                 }
                 is LoadState.Empty -> {
                     Text(
@@ -62,34 +64,6 @@ fun MainScreen(
                 }
                 is LoadState.Refreshing -> Unit
             }
-        }
-    }
-}
-
-@Composable
-fun OnLoading() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CircularProgressIndicator(color = colors.onBackground)
-    }
-}
-
-@Composable
-fun OnError(message: String, onClick: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = message,
-            fontSize = 16.sp,
-        )
-        Button(onClick = onClick) {
-            Text(text = "Reload")
         }
     }
 }

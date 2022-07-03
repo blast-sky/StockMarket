@@ -2,11 +2,12 @@ package com.example.stockmarket.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.stockmarket.Config
 import com.example.stockmarket.data.local.ObsoleteRule
 import com.example.stockmarket.data.local.StockDataBase
-import com.example.stockmarket.data.repository.LocalRemoteStockRepositoryImpl
+import com.example.stockmarket.data.repository.LocalStockRepositoryImpl
+import com.example.stockmarket.data.repository.TestLocalStockRepository
 import com.example.stockmarket.domain.repository.LocalStockRepository
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,7 @@ class LocaleModule {
     ) = Room.databaseBuilder(
         context,
         StockDataBase::class.java,
-        "stock_database"
+        "database"
     )
         .fallbackToDestructiveMigration()
         .build()
@@ -33,12 +34,15 @@ class LocaleModule {
 
     @Provides
     fun provideObsoleteRule(): ObsoleteRule = ObsoleteRule.Base
-}
 
-@Module
-@InstallIn(ViewModelComponent::class)
-abstract class BindLocaleModule {
-
-    @Binds
-    abstract fun bindLocaleStockRepository(repository: LocalRemoteStockRepositoryImpl): LocalStockRepository
+    @Provides
+    fun provideLocalStockRepository(
+        repository: LocalStockRepositoryImpl,
+        test: TestLocalStockRepository
+    ): LocalStockRepository {
+        return if (Config.USE_TEST_LOCAL_REPOSITORY)
+            test
+        else
+            repository
+    }
 }

@@ -1,8 +1,9 @@
 package com.example.stockmarket.data.remote
 
 import com.example.stockmarket.Config
-import com.example.stockmarket.data.remote.dto.PaginationAndCurrenciesDto
-import com.example.stockmarket.data.remote.dto.PaginationAndHistoricalDataDto
+import com.example.stockmarket.data.remote.dto.pagination.PaginationAndCurrenciesDto
+import com.example.stockmarket.data.remote.dto.pagination.PaginationAndHistoricalDataDto
+import com.example.stockmarket.data.remote.dto.pagination.PaginationAndTickers
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -25,6 +26,11 @@ interface StockMarketService {
         @Query("limit") limit: Int? = null,
         @Query("offset") offset: Int? = null
     ): Response<PaginationAndHistoricalDataDto>
+
+    @GET("v1/tickers")
+    suspend fun getTickers(
+        @Query("access_key") token: String = TOKEN,
+    ): Response<PaginationAndTickers>
 
     companion object {
         const val BASE_URL = Config.BASE_URL

@@ -26,7 +26,7 @@ import com.example.stockmarket.domain.model.HistoricalData
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HistoryChart(data: List<HistoricalData>) {
-    require(data.isNotEmpty())
+    if(data.isEmpty()) return
 
     val min = data.minOf { it.low }
     val max = data.maxOf { it.high }
@@ -41,7 +41,6 @@ fun HistoryChart(data: List<HistoricalData>) {
         modifier = Modifier
             .fillMaxWidth()
             .height(200.dp)
-            .background(Color.Gray)
             .padding(30.dp)
     ) {
         val height = size.height

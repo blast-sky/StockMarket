@@ -4,6 +4,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.stockmarket.domain.model.Currency
 import com.example.stockmarket.domain.model.HistoricalData
+import com.example.stockmarket.domain.model.StockExchange
+import com.example.stockmarket.domain.model.Ticker
 import com.example.stockmarket.domain.repository.RemoteStockRepository
 import com.example.stockmarket.util.Resource
 import kotlinx.coroutines.delay
@@ -80,5 +82,21 @@ class TestRemoteStockRepository @Inject constructor() : RemoteStockRepository {
             2u -> Resource.Error("Error from TestRepository")
             else -> Resource.Error("Error from TestRepository")
         }
+    }
+
+    override suspend fun getTickers(): Resource<List<Ticker>> {
+        val randomString = { Random.nextUInt(10000u).toString() }
+
+        return Resource.Success(
+            listOf(
+                Ticker(
+                    randomString.invoke(),
+                    randomString.invoke(),
+                    StockExchange(
+                        randomString.invoke(),
+                    )
+                )
+            )
+        )
     }
 }

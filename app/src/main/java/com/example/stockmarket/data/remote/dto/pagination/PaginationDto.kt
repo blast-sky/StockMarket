@@ -1,4 +1,4 @@
-package com.example.stockmarket.data.remote.dto
+package com.example.stockmarket.data.remote.dto.pagination
 
 import com.google.gson.annotations.SerializedName
 
