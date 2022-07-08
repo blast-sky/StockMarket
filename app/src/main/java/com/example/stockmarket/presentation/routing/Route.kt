@@ -5,7 +5,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.composable
 
 
-abstract class Route(
+sealed class Route(
     val route: String,
     val baseRoute: String = route,
     val arguments: List<NamedNavArgument> = emptyList(),

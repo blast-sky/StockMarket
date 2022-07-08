@@ -17,7 +17,6 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 fun TickerListScreen(
-    navController: NavController,
     viewModel: TickerListViewModel = hiltViewModel()
 ) {
     val state = viewModel.tickersProvider.state

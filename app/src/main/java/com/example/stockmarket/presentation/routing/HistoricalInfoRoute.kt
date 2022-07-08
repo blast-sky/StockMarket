@@ -1,7 +1,5 @@
 package com.example.stockmarket.presentation.routing
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.navigation.navArgument
 import com.example.stockmarket.domain.model.Currency
 import com.example.stockmarket.presentation.historical_info.HistoricalInfoScreen

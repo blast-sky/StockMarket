@@ -11,16 +11,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.stockmarket.domain.model.HistoricalData
 import com.example.stockmarket.domain.model.Ticker
 import com.example.stockmarket.presentation.LoadState
 import com.example.stockmarket.presentation.common.OnError
@@ -36,7 +32,7 @@ fun TickerItem(
 ) {
     val shape = MaterialTheme.shapes.medium
     val color = MaterialTheme.colors.surface
-    val borderColor = MaterialTheme.colors.secondary
+    val borderColor = MaterialTheme.colors.onSurface
 
     Card(
         modifier = Modifier
