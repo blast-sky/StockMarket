@@ -11,14 +11,17 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 class RemoteModule {
 
     @Provides
+    @Singleton
     fun provideStockMarketService(): StockMarketService {
         val gson = GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'00:00:00+0000")

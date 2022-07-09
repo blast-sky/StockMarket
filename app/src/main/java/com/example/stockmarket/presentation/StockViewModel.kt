@@ -1,14 +1,9 @@
 package com.example.stockmarket.presentation
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.stockmarket.util.Resource
-import kotlinx.coroutines.Dispatchers
+import com.example.stockmarket.domain.Resource
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 abstract class StockViewModel<T> : ViewModel() {
 

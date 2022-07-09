@@ -10,7 +10,7 @@ import com.example.stockmarket.domain.model.Currency
 import com.example.stockmarket.domain.model.HistoricalData
 import com.example.stockmarket.domain.model.Ticker
 import com.example.stockmarket.domain.repository.RemoteStockRepository
-import com.example.stockmarket.util.Resource
+import com.example.stockmarket.domain.Resource
 import javax.inject.Inject
 
 class RemoteStockRepositoryImpl @Inject constructor(

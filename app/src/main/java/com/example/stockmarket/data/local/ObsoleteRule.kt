@@ -7,7 +7,7 @@ interface ObsoleteRule {
 
     fun isObsolete(date: LocalDateTime): Boolean
 
-    object Base: ObsoleteRule {
+    object Default: ObsoleteRule {
         override fun isObsolete(date: LocalDateTime): Boolean {
             val from = LocalDateTime.from(date)
             val minutes = from.until(LocalDateTime.now(), ChronoUnit.MINUTES)

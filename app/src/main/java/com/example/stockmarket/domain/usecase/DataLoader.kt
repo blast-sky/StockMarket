@@ -1,6 +1,6 @@
 package com.example.stockmarket.domain.usecase
 
-import com.example.stockmarket.util.Resource
+import com.example.stockmarket.domain.Resource
 
 interface DataLoader {
 

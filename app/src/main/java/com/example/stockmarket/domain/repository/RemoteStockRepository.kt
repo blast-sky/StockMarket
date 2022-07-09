@@ -3,8 +3,7 @@ package com.example.stockmarket.domain.repository
 import com.example.stockmarket.domain.model.Currency
 import com.example.stockmarket.domain.model.HistoricalData
 import com.example.stockmarket.domain.model.Ticker
-import com.example.stockmarket.util.Resource
-import java.text.DateFormatSymbols
+import com.example.stockmarket.domain.Resource
 
 interface RemoteStockRepository {
 

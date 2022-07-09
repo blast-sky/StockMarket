@@ -7,7 +7,7 @@ import com.example.stockmarket.domain.model.HistoricalData
 import com.example.stockmarket.domain.model.StockExchange
 import com.example.stockmarket.domain.model.Ticker
 import com.example.stockmarket.domain.repository.RemoteStockRepository
-import com.example.stockmarket.util.Resource
+import com.example.stockmarket.domain.Resource
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

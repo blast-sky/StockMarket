@@ -3,7 +3,7 @@ package com.example.stockmarket.presentation
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.example.stockmarket.util.Resource
+import com.example.stockmarket.domain.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
